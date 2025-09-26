@@ -1,14 +1,28 @@
 # ----- CONFIGURE YOUR EDITOR TO USE 4 SPACES PER TAB ----- #
 import pymysql
+import os
+from dotenv import load_dotenv 
+
+load_dotenv()
 # Example usage:
-db_config = {
-    'host': 'db.gntserver1.freeddns.org',
-    'user': 'fotis', ##your user name here, usually root
-    'password': 'fotis1234', ##your password here
-    'database': 'Airbnb', ## the name of your database
+#db_config = {
+ #   'host': 'db.gntserver1.freeddns.org',
+ #   'user': 'fotis', ##your user name here, usually root
+  #  'password': 'fotis1234', ##your password here
+   # 'database': 'Airbnb', ## the name of your database
     # 'charset': 'utf8mb4', #optional
     # 'cursorclass': pymysql.cursors.DictCursor #optional
+#}
+
+# Τα στοιχεία σύνδεσης φορτώνονται από το αρχείο .env για ασφάλεια
+# (δεν βάζουμε credentials μέσα στον κώδικα)
+db_config = {
+    'host': os.getenv('DB_HOST', '127.0.0.1'),
+    'user': os.getenv('DB_USER', ''),
+    'password': os.getenv('DB_PASS', ''),
+    'database': os.getenv('DB_NAME', ''),
 }
+
 
 """ By default, pymysql cursors return results as tuples. Each tuple represents a row from the database, 
     and you access the columns by their numerical index (e.g., row[0], row[1]).
