@@ -297,7 +297,7 @@ def countWordsForProperties(N, M):
         # result = [("Error", str(e))]
         print(f"[countWordsForProperties] Error: {e}")
         result = []  # άδειος πίνακας
-    return [("Property ID","Name","Location","Unique guests","Amenities","Top Words")] + result
+    # return [("Property ID","Name","Location","Unique guests","Amenities","Top Words")] + result
      
 
     finally:
