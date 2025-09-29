@@ -294,7 +294,11 @@ def countWordsForProperties(N, M):
 
     except Exception as e:
         # Σε περίπτωση λάθους επιστρέφουμε το μήνυμα λάθους
-        result = [("Error", str(e))]
+        # result = [("Error", str(e))]
+        print(f"[countWordsForProperties] Error: {e}")
+        result = []  # άδειος πίνακας
+    return [("Property ID","Name","Location","Unique guests","Amenities","Top Words")] + result
+     
 
     finally:
         cursor.close()
