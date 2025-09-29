@@ -249,7 +249,7 @@ def countWordsForProperties(N, M):
 
         result = []
 
-        result.append((message,))
+        # result.append((message,))
 
         # Για κάθε ακίνητο που πέρασε τα φίλτρα, συγκεντρώνουμε στοιχεία
         for pid in final_props:
