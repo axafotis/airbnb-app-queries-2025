@@ -47,9 +47,9 @@ def checkIfPropertyExists(location_a, property_type_a):
         count = cursor.fetchone()[0]
 
         if count > 0:
-            return [("yes",)]
+            return [("exists",),("yes",)]
         else:
-            return [("no",)]
+            return [("exists,"),("no",)]
     finally:
         cursor.close()
         connection.close()
