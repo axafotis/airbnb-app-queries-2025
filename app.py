@@ -124,12 +124,12 @@ def findMatchingProperties(guest_id):
             # Βήμα 1: Ανάκτηση καταλυμάτων με κοινές παροχές και κανόνες
             main_query = """
                          SELECT DISTINCT b.guest_id, p1.property_id
-                         FROM property_has_amenity p1, \
-                              wishlist w, \
-                              wishlist_has_property wp, \
-                              property_has_amenity p2, \
-                              property_has_rule r1, \
-                              booking b, \
+                         FROM property_has_amenity p1, 
+                              wishlist w, 
+                              wishlist_has_property wp, 
+                              property_has_amenity p2, 
+                              property_has_rule r1, 
+                              booking b, 
                               property_has_rule r2
                          WHERE w.guest_id = %s
                            AND w.wishlist_id = wp.wishlist_id
@@ -147,10 +147,10 @@ def findMatchingProperties(guest_id):
             # Βήμα 2: Ανάκτηση των αποκλεισμένων οικοδεσποτών
             blocked_hosts_query = """
                                   SELECT DISTINCT p.host_id
-                                  FROM property p, \
+                                  FROM property p, 
                                        booking b
                                   WHERE b.guest_id = %s
-                                    AND b.property_id = p.property_id; \
+                                    AND b.property_id = p.property_id; 
                                   """
 
             cursor.execute(blocked_hosts_query, (guest_id,))
@@ -194,7 +194,7 @@ def findMatchingProperties(guest_id):
 
     except Exception as e:
             print(f"Σφάλμα κατά την εκτέλεση του query: {e}")
-            return [("Error",)]
+            return [("Property ID", "Property Name", "Amenities", "House Rules")]
 
     finally:
             # Κλείσιμο της σύνδεσης
