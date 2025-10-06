@@ -76,7 +76,7 @@ def selectTopNhosts(N):
         # 2. Εύρεση των top N ιδιοκτητών για κάθε τύπο καταλύματος
         for type_id, type_name in property_types:
             # Βρίσκουμε όλα τα property_id για τον συγκεκριμένο τύπο καταλύματος
-            cursor.execute(f"SELECT property_id FROM property_has_type WHERE type_id = {type_id}")
+            cursor.execute("SELECT property_id FROM property_has_type WHERE type_id = %s", (type_id,))
             property_ids = [row[0] for row in cursor.fetchall()]
 
             # Αν δεν υπάρχουν καταλύματα για αυτόν τον τύπο, προχωράμε στον επόμενο τύπο
@@ -86,7 +86,7 @@ def selectTopNhosts(N):
             # Βρίσκουμε τους hosts για αυτά τα properties χωρίς JOIN
             host_counts = {}
             for property_id in property_ids:
-                cursor.execute(f"SELECT host_id FROM property WHERE property_id = {property_id}")
+                cursor.execute(f"SELECT host_id FROM property WHERE property_id = %s", (property_id,))
                 host_id = cursor.fetchone()
 
                 if host_id is not None:
