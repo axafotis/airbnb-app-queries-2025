@@ -107,7 +107,7 @@ def selectTopNhosts(N):
         return results
 
     except Exception as e:
-        print(f"Error executing selectTopNhosts: {e}")  # Εκτύπωση μηνύματος λάθους σε περίπτωση αποτυχίας
+        print("Error executing selectTopNhosts: {e}")  # Εκτύπωση μηνύματος λάθους σε περίπτωση αποτυχίας
         return [("Property Type", "Host ID", "Property Count")]
 
     finally:
