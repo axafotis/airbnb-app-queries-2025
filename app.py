@@ -138,7 +138,7 @@ def findMatchingProperties(guest_id):
                            AND b.guest_id = %s
                            AND b.property_id = r2.property_id
                            AND r1.rule_id = r2.rule_id
-                           AND p1.property_id = r1.property_id; \
+                           AND p1.property_id = r1.property_id
                          """
 
             cursor.execute(main_query, (guest_id, guest_id))
