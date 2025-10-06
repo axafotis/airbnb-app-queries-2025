@@ -519,7 +519,7 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
         try:
             desired_amenities = json.loads(desired_amenities)
         except:
-            return [("Invalid amenities format",)]
+            return HEADER + [("ERROR", "Invalid amenities format",)]
 
     connection = pymysql.connect(**db_config)
     cursor = connection.cursor()
@@ -535,7 +535,7 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
         properties = cursor.fetchall()  # πχ [(1, "Prop1", 4.5, 80.0), (2, "Prop2", 4.8, 90.0), ...]
 
         if not properties:
-            return HEADER + [("No suitable properties found",)]
+            return HEADER + [("", "No suitable properties found",)]
 
         property_ids = [p[0] for p in properties]
 
@@ -577,7 +577,7 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
         best_property = scored_properties[0] if scored_properties else None
 
         if not best_property:
-            return HEADER + [("No suitable properties found",)]
+            return HEADER + [("", "No suitable properties found",)]
 
         best_property_id, best_property_name = best_property[0], best_property[1]
 
@@ -598,7 +598,7 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
 
     except Exception as e:
         connection.rollback()
-        return HEADER + [(f"Error occurred: {str(e)}",)]
+        return HEADER + [("ERROR", str(e))]
     finally:
         cursor.close()
         connection.close()
