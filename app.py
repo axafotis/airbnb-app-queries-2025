@@ -187,8 +187,10 @@ def findMatchingProperties(guest_id):
                     house_rules = [row[0] for row in cursor.fetchall()]
 
                     # Προσθήκη του καταλύματος στα τελικά αποτελέσματα
-                    final_results.append(
-                        (property_id, property_name_map[property_id], ", ".join(amenities), ", ".join(house_rules)))
+                    #final_results.append(
+                       # (property_id, property_name_map[property_id], ", ".join(amenities), ", ".join(house_rules)))
+                    property_name = property_name_map.get(property_id, "")
+                    final_results.append((property_id, property_name, ", ".join(amenities), ", ".join(house_rules)))
 
             return final_results
 
