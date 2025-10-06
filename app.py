@@ -513,6 +513,7 @@ def highValueHost(min_price_booking, min_rating_review, min_avg_price_host, min_
 
 def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_rating):
     import json
+    HEADER = [("Property ID", "Property Name")]
 
     if isinstance(desired_amenities, str):
         try:
@@ -534,7 +535,7 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
         properties = cursor.fetchall()  # πχ [(1, "Prop1", 4.5, 80.0), (2, "Prop2", 4.8, 90.0), ...]
 
         if not properties:
-            return [("No suitable properties found",)]
+            return HEADER + [("No suitable properties found",)]
 
         property_ids = [p[0] for p in properties]
 
@@ -576,7 +577,7 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
         best_property = scored_properties[0] if scored_properties else None
 
         if not best_property:
-            return [("No suitable properties found",)]
+            return HEADER + [("No suitable properties found",)]
 
         best_property_id, best_property_name = best_property[0], best_property[1]
 
@@ -593,11 +594,11 @@ def recommendProperty(guest_id, desired_city, desired_amenities, max_price, min_
 
         connection.commit()
 
-        return [(best_property_id, best_property_name)]
+        return HEADER + [(best_property_id, best_property_name)]
 
     except Exception as e:
         connection.rollback()
-        return [(f"Error occurred: {str(e)}",)]
+        return HEADER + [(f"Error occurred: {str(e)}",)]
     finally:
         cursor.close()
         connection.close()
