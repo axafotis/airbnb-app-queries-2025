@@ -309,6 +309,7 @@ def countWordsForProperties(N, M):
 
 
 def findCommonPropertiesAndGuests(guest_id_a, guest_id_b):
+    HEADER = [("Property Name", "Guest C", "Guest D", "Guest A", "Guest B")]
     try:
         connection = pymysql.connect(**db_config)
         cursor = connection.cursor()
@@ -322,7 +323,7 @@ def findCommonPropertiesAndGuests(guest_id_a, guest_id_b):
         properties_b = set(row[0] for row in cursor.fetchall())
         
         if not properties_a or not properties_b:
-            return [("nothing found",)]
+            return HEADER
         
         # Βρες επισκέπτες που έχουν μείνει σε ακίνητα a
         guests_c_list = []
@@ -378,13 +379,13 @@ def findCommonPropertiesAndGuests(guest_id_a, guest_id_b):
                         results.append((title[0], c, d, guest_id_a, guest_id_b))
         
         if not results:
-            return [("nothing found",)]
+            return HEADER
         
-        return [("Property Name", "Guest C", "Guest D", "Guest A", "Guest B")] + results
+        return HEADER + results
     
     except Exception as e:
         print(f"Error in findCommonPropertiesAndGuests: {e}")
-        return [("nothing found",)]
+        return HEADER 
     finally:
         try:
             cursor.close()
