@@ -86,7 +86,7 @@ def selectTopNhosts(N):
             # Βρίσκουμε τους hosts για αυτά τα properties χωρίς JOIN
             host_counts = {}
             for property_id in property_ids:
-                cursor.execute(f"SELECT host_id FROM property WHERE property_id = %s", (property_id,))
+                cursor.execute("SELECT host_id FROM property WHERE property_id = %s", (property_id,))
                 host_id = cursor.fetchone()
 
                 if host_id is not None:
@@ -107,7 +107,7 @@ def selectTopNhosts(N):
         return results
 
     except Exception as e:
-        print("Error executing selectTopNhosts: {e}")  # Εκτύπωση μηνύματος λάθους σε περίπτωση αποτυχίας
+        print(f"Error executing selectTopNhosts: {e}")  # Εκτύπωση μηνύματος λάθους σε περίπτωση αποτυχίας
         return [("Property Type", "Host ID", "Property Count")]
 
     finally:
